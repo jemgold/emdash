@@ -23,9 +23,12 @@ require 'models/Post'
 
 
 # ===== Routes =====
-App.IndexRoute = Ember.Route.extend
-    setupController: (controller) ->
-        controller.set 'content', ['red', 'yellow', 'blue']
+require 'routes/NewPostRoute'
 
 
 # ===== Router =====
+App.Router.map ->
+  @resource('posts')
+  @resource('post', path: '/posts/:post_id')
+  @route('edit_post', path: '/posts/:post_id/edit')
+  @route('new_post', path: '/posts/new')
