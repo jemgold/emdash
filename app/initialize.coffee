@@ -1,10 +1,11 @@
 # ===== Namespace =====
-App = window.App = require 'app'
+App = require 'app'
 
 # ===== Store =====
-App.Store = DS.Store.extend
+App.Store = DS.Store.extend({
   revision: 12
-  adapter: DS.LSAdapter.create()
+  adapter: 'DS.FixtureAdapter'
+})
 
 # ===== Templates =====
 require 'templates/application'
@@ -15,7 +16,7 @@ require 'templates/edit_post'
 
 
 # ===== Models =====
-require 'models/Post'
+App.Post = require 'models/Post'
 
 # ===== Controllers =====
 App.PostsController = require 'controllers/PostsController'

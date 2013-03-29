@@ -1,4 +1,4 @@
-App = require 'app'
+# App = require 'app'
 Post = require 'models/Post'
 
 NewPostRoute = Em.Route.extend
@@ -7,7 +7,6 @@ NewPostRoute = Em.Route.extend
 
   model: ->
     Post.createRecord()
-
 
   exit: ->
     model = @get('controller.model')
