@@ -17,6 +17,7 @@ exports.config =
                     'vendor/scripts/handlebars-1.0.rc.3.js'
                     'vendor/scripts/ember.js'
                     'vendor/scripts/ember-data-master.js'
+                    'vendor/scripts/localstorage_adapter.js'
                     'vendor/scripts/swag.js'
                 ]
                 after: [

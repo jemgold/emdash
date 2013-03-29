@@ -1,6 +1,10 @@
 # ===== Namespace =====
-App = require 'app'
+App = window.App = require 'app'
 
+# ===== Store =====
+App.Store = DS.Store.extend
+  revision: 12
+  adapter: DS.LSAdapter.create()
 
 # ===== Templates =====
 require 'templates/application'
@@ -14,7 +18,10 @@ require 'templates/edit_post'
 require 'models/Post'
 
 # ===== Controllers =====
-
+App.PostsController = require 'controllers/PostsController'
+App.PostController = require 'controllers/PostController'
+App.EditPostController = require 'controllers/EditPostController'
+App.NewPostController = require 'controllers/NewPostController'
 
 # ===== Views =====
 
@@ -23,8 +30,8 @@ require 'models/Post'
 
 
 # ===== Routes =====
-require 'routes/NewPostRoute'
-
+App.PostRoute = require 'routes/PostRoute'
+App.NewPostRoute = require 'routes/NewPostRoute'
 
 # ===== Router =====
 App.Router.map ->
