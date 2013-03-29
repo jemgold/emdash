@@ -8,7 +8,7 @@ require 'templates/index'
 
 
 # ===== Models =====
-
+require 'models/Post'
 
 # ===== Controllers =====
 
