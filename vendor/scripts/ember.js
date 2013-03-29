@@ -151,8 +151,8 @@ Ember.deprecateFunc = function(message, func) {
 
 })();
 
-// Version: v1.0.0-rc.1-259-gf557e37
-// Last commit: f557e37 (2013-03-27 13:57:29 -0700)
+// Version: v1.0.0-rc.2-2-g9104bf1
+// Last commit: 9104bf1 (2013-03-29 13:59:19 -0700)
 
 
 (function() {
@@ -212,7 +212,7 @@ var define, requireModule;
 
   @class Ember
   @static
-  @version 1.0.0-rc.1
+  @version 1.0.0-rc.2
 */
 
 if ('undefined' === typeof Ember) {
@@ -239,10 +239,10 @@ Ember.toString = function() { return "Ember"; };
 /**
   @property VERSION
   @type String
-  @default '1.0.0-rc.1'
+  @default '1.0.0-rc.2'
   @final
 */
-Ember.VERSION = '1.0.0-rc.1';
+Ember.VERSION = '1.0.0-rc.2';
 
 /**
   Standard environmental variables. You can define these in a global `ENV`
@@ -4894,8 +4894,8 @@ Ember.run.scheduleOnce = function(queue, target, method, args) {
 };
 
 /**
-  Schedules an item to run from within a separate run loop, after
-  control has been returned to the system. This is equivalent to calling
+  Schedules an item to run from within a separate run loop, after 
+  control has been returned to the system. This is equivalent to calling 
   `Ember.run.later` with a wait time of 1ms.
 
   ```javascript
@@ -4907,7 +4907,7 @@ Ember.run.scheduleOnce = function(queue, target, method, args) {
   Multiple operations scheduled with `Ember.run.next` will coalesce
   into the same later run loop, along with any other operations
   scheduled by `Ember.run.later` that expire right around the same
-  time that `Ember.run.next` operations will fire.
+  time that `Ember.run.next` operations will fire. 
 
   Note that there are often alternatives to using `Ember.run.next`.
   For instance, if you'd like to schedule an operation to happen
@@ -4933,13 +4933,13 @@ Ember.run.scheduleOnce = function(queue, target, method, args) {
 
   One benefit of the above approach compared to using `Ember.run.next` is
   that you will be able to perform DOM/CSS operations before unprocessed
-  elements are rendered to the screen, which may prevent flickering or
+  elements are rendered to the screen, which may prevent flickering or 
   other artifacts caused by delaying processing until after rendering.
 
-  The other major benefit to the above approach is that `Ember.run.next`
-  introduces an element of non-determinism, which can make things much
-  harder to test, due to its reliance on `setTimeout`; it's much harder
-  to guarantee the order of scheduled operations when they are scheduled
+  The other major benefit to the above approach is that `Ember.run.next` 
+  introduces an element of non-determinism, which can make things much 
+  harder to test, due to its reliance on `setTimeout`; it's much harder 
+  to guarantee the order of scheduled operations when they are scheduled 
   outside of the current run loop, i.e. with `Ember.run.next`.
 
   @method next
@@ -21665,7 +21665,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   var buffer = '', stack1, hashTypes, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
-
+  
   var buffer = '', hashTypes;
   data.buffer.push("<option value=\"\">");
   hashTypes = {};
@@ -21675,7 +21675,7 @@ function program1(depth0,data) {
   }
 
 function program3(depth0,data) {
-
+  
   var hashTypes;
   hashTypes = {'contentBinding': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.SelectOption", {hash:{
@@ -21690,7 +21690,7 @@ function program3(depth0,data) {
   stack1 = helpers.each.call(depth0, "view.content", {hash:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   return buffer;
-
+  
 }),
   attributeBindings: ['multiple', 'disabled', 'tabindex', 'name'],
 
@@ -23224,7 +23224,8 @@ DSL.prototype = {
   },
 
   push: function(url, name, callback) {
-    if (url === "" || url === "/") { this.explicitIndex = true; }
+    var parts = name.split('.');
+    if (url === "" || url === "/" || parts[parts.length-1] === "index") { this.explicitIndex = true; }
 
     this.matches.push([url, name, callback]);
   },
@@ -24433,7 +24434,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     container = options.data.keywords.controller.container;
     router = container.lookup('router:main');
 
-    Ember.assert("This view is already rendered", !router || !router._lookupActiveView(name));
+    Ember.assert("You can only use the {{render}} helper once without a model object as its second argument, as in {{render \"post\" post}}.", context || !router || !router._lookupActiveView(name));
 
     view = container.lookup('view:' + name) || container.lookup('view:default');
 
@@ -24461,7 +24462,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     options.hash.template = container.lookup('template:' + name);
     options.hash.controller = controller;
 
-    if (router && !contextString) {
+    if (router && !context) {
       router._connectActiveView(name, view);
     }
 
@@ -25913,8 +25914,6 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
   */
   customEvents: null,
 
-  isInitialized: false,
-
   // Start off the number of deferrals at 1. This will be
   // decremented by the Application's own `initialize` method.
   _readinessDeferrals: 1,
@@ -26006,15 +26005,12 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
   scheduleInitialize: function() {
     var self = this;
 
-    function initialize(){
-      if (self.isDestroyed) { return; }
-      Ember.run.schedule('actions', self, 'initialize');
-    }
-
     if (!this.$ || this.$.isReady) {
-      initialize();
+      Ember.run.schedule('actions', self, '_initialize');
     } else {
-      this.$().ready(initialize);
+      this.$().ready(function(){
+        Ember.run(self, '_initialize');
+      });
     }
   },
 
@@ -26108,6 +26104,20 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
 
   /**
     @private
+    @deprecated
+
+    Calling initialize manually is not supported.
+
+    Please see Ember.Application#advanceReadiness and
+    Ember.Application#deferReadiness.
+
+    @method initialize
+   **/
+  initialize: function(){
+    Ember.deprecate('Calling initialize manually is not supported. Please see Ember.Application#advanceReadiness and Ember.Application#deferReadiness');
+  },
+  /**
+    @private
 
     Initialize the application. This happens automatically.
 
@@ -26115,12 +26125,10 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
     choose to defer readiness. For example, an authentication hook might want
     to defer readiness until the auth token has been retrieved.
 
-    @method initialize
+    @method _initialize
   */
-  initialize: function() {
-    Ember.assert("Application initialize may only be called once. Note: calling initialize in application code is no longer required.", !this.isInitialized);
-    Ember.assert("Cannot initialize a destroyed application", !this.isDestroyed);
-    this.isInitialized = true;
+  _initialize: function() {
+    if (this.isDestroyed) { return; }
 
     // At this point, the App.Router must already be assigned
     this.register('router:main', this.Router);
@@ -26140,10 +26148,8 @@ var Application = Ember.Application = Ember.Namespace.extend(Ember.DeferredMixin
     get(this, '__container__').destroy();
     this.buildContainer();
 
-    this.isInitialized = false;
-
     Ember.run.schedule('actions', this, function(){
-      this.initialize();
+      this._initialize();
       this.startRouting();
     });
   },
@@ -27735,8 +27741,8 @@ Ember States
 
 
 })();
-// Version: v1.0.0-rc.1-259-gf557e37
-// Last commit: f557e37 (2013-03-27 13:57:29 -0700)
+// Version: v1.0.0-rc.2-2-g9104bf1
+// Last commit: 9104bf1 (2013-03-29 13:59:19 -0700)
 
 
 (function() {

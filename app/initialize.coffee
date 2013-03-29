@@ -1,5 +1,5 @@
 # ===== Namespace =====
-App = require 'app'
+App = Em.Application.create({})
 
 # ===== Store =====
 App.Store = DS.Store.extend({
@@ -16,13 +16,44 @@ require 'templates/edit_post'
 
 
 # ===== Models =====
-App.Post = require 'models/Post'
+App.Post = DS.Model.extend
+  title: DS.attr('string')
+
+App.Post.FIXTURES = [
+  id: 1
+  title: "Something"
+,
+  id: 2
+  title: "Something123123"
+]
 
 # ===== Controllers =====
-App.PostsController = require 'controllers/PostsController'
-App.PostController = require 'controllers/PostController'
-App.EditPostController = require 'controllers/EditPostController'
-App.NewPostController = require 'controllers/NewPostController'
+App.PostsController = Em.ArrayController.extend
+  destroy: (post) ->
+    return unless confirm('Are you sure?')
+    post.deleteRecord()
+    @get('store').commit()
+    @get('target').transitionTo('posts')
+
+App.PostController = Em.ObjectController.extend
+  destroy: ->
+    return unless confirm('Are you sure?')
+    @get('model').deleteRecord()
+    @get('store').commit()
+    @get('target').transitionTo('posts')
+
+
+App.EditPostController = Em.ObjectController.extend
+  save: ->
+    @get('store').commit()
+    @redirectToModel()
+
+  redirectToModel: ->
+    router = @get('target')
+    model = @get('model')
+    router.transitionTo('post', model)
+
+App.NewPostController = App.EditPostController.extend()
 
 # ===== Views =====
 
@@ -31,8 +62,21 @@ App.NewPostController = require 'controllers/NewPostController'
 
 
 # ===== Routes =====
-App.PostRoute = require 'routes/PostRoute'
-App.NewPostRoute = require 'routes/NewPostRoute'
+App.PostRoute = Em.Route.extend
+  model: ->
+    App.Post.find()
+
+App.NewPostRoute = Em.Route.extend
+  renderTemplate: ->
+    @render 'edit_post', controller: 'new_post'
+
+  model: ->
+    App.Post.createRecord()
+
+  exit: ->
+    model = @get('controller.model')
+    unless model.get('isSaving')
+      model.deleteRecord()
 
 # ===== Router =====
 App.Router.map ->
