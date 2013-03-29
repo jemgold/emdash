@@ -65,10 +65,6 @@ App.PostsRoute = Em.Route.extend
   model: ->
     App.Post.find()
 
-App.PostRoute = Em.Route.extend
-  model: ->
-    App.Post.find()
-
 App.NewPostRoute = Em.Route.extend
   renderTemplate: ->
     @render 'edit_post', controller: 'new_post'
