@@ -1,11 +1,10 @@
 # ===== Namespace =====
-App = Em.Application.create({})
+window.App = App = Em.Application.create({})
 
 # ===== Store =====
-App.Store = DS.Store.extend({
+App.Store = DS.Store.extend
   revision: 12
-  adapter: 'DS.FixtureAdapter'
-})
+  adapter: DS.FixtureAdapter.extend()
 
 # ===== Templates =====
 require 'templates/application'
@@ -62,6 +61,10 @@ App.NewPostController = App.EditPostController.extend()
 
 
 # ===== Routes =====
+App.PostsRoute = Em.Route.extend
+  model: ->
+    App.Post.find()
+
 App.PostRoute = Em.Route.extend
   model: ->
     App.Post.find()
