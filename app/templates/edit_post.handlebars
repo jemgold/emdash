@@ -1,0 +1,30 @@
+<h2>Post</h2>
+
+<form {{action save on="submit"}}>
+
+  <p>
+    <label for="title">Title</label><br>
+    {{view Ember.TextField valueBinding="title" id="title"}}
+  </p>
+
+  <p>
+    <label for="author">Author</label><br>
+    {{view Ember.TextField valueBinding="author" id="author"}}
+  </p>
+
+  <p>
+    <label for="published_at">Published at</label><br>
+    {{view Ember.TextField valueBinding="publishedAt" id="published_at"}}
+  </p>
+
+  <p>
+    <label for="body">Body</label><br>
+    {{view Ember.TextArea valueBinding="body" id="body"}}
+  </p>
+
+  <p>
+    <button type="submit">Save</button>
+  </p>
+
+</form>
+
