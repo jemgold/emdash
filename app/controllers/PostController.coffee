@@ -7,4 +7,14 @@ PostController = Em.ObjectController.extend
     @get('store').commit()
     @get('target').transitionTo('posts')
 
+  readingTime:(->
+    words = @get('body').split(' ').length
+    console.log words
+    WPM = 200
+    seconds = parseInt(words / (WPM / 60), 10)
+    d = moment.duration(seconds, 'seconds')
+    d.humanize()
+
+  ).property('body')
+
 module.exports = PostController

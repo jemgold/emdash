@@ -1,13 +1,18 @@
-<h2>Post</h2>
+<form {{action save on="submit"}} class="edit-form">
 
-<form {{action save on="submit"}}>
+  <div class="editor-container">
+    {{view Ember.TextField valueBinding="title" id="title" class="content"}}
+    {{view Ember.TextArea valueBinding="body" id="body" class="content"}}
+  </div>
+  <div class="actions">
+    <div class="alignright">
+      <button type="submit" class="butt">Save</button>
+    </div>
+    <a href="#" {{action "destroy"}} class="warning-text butt icon icon-remove action">Delete</a>
+  </div>
 
-  <p>
-    <label for="title">Title</label><br>
-    {{view Ember.TextField valueBinding="title" id="title"}}
-  </p>
 
-  <p>
+<!--   <p>
     <label for="author">Author</label><br>
     {{view Ember.TextField valueBinding="author" id="author"}}
   </p>
@@ -15,16 +20,8 @@
   <p>
     <label for="published_at">Published at</label><br>
     {{view Ember.TextField valueBinding="publishedAt" id="published_at"}}
-  </p>
+  </p> -->
 
-  <p>
-    <label for="body">Body</label><br>
-    {{view Ember.TextArea valueBinding="body" id="body"}}
-  </p>
-
-  <p>
-    <button type="submit">Save</button>
-  </p>
 
 </form>
 

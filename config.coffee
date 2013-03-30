@@ -18,6 +18,8 @@ exports.config =
                     'vendor/scripts/ember.js'
                     'vendor/scripts/ember-data-master.js'
                     'vendor/scripts/localstorage_adapter.js'
+                    'vendor/scripts/showdown.js'
+                    'vendor/scripts/moment.js'
                     'vendor/scripts/swag.js'
                 ]
                 after: [

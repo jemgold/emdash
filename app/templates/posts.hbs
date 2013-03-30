@@ -8,7 +8,7 @@
     {{#linkTo "post" post class="blend-link document-link"}}
       <span class="document-title">{{post.title}}</span>
       <small class="last-edited">
-        <span class="mobile-offscreen">Last edited: </span>{{post.publishedAt}}
+        <span class="mobile-offscreen">Last edited: </span>{{date post.updatedAt}}
       </small>
     {{/linkTo}}
     <div class="align-right mini-actions">
