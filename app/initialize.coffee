@@ -45,6 +45,7 @@ Em.Handlebars.registerBoundHelper 'md', (value) ->
   new Em.Handlebars.SafeString(showdown.makeHtml(value))
 
 # ===== Routes =====
+App.IndexRoute = require 'routes/IndexRoute'
 App.PostsRoute = require 'routes/PostsRoute'
 App.NewPostRoute = require 'routes/NewPostRoute'
 
