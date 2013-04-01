@@ -9,7 +9,6 @@ PostController = Em.ObjectController.extend
 
   readingTime:(->
     words = @get('body').split(' ').length
-    console.log words
     WPM = 200
     seconds = parseInt(words / (WPM / 60), 10)
     d = moment.duration(seconds, 'seconds')
