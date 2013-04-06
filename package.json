@@ -18,6 +18,7 @@
     "dependencies": {
         "javascript-brunch": ">= 1.0 < 1.6",
         "coffee-script-brunch": ">= 1.0 < 1.6",
+        "ember-script-brunch": "git://github.com/myfreeweb/ember-script-brunch.git#HEAD",
 
         "css-brunch": ">= 1.0 < 1.6",
         "stylus-brunch": ">= 1.0 < 1.6",

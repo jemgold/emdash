@@ -5,7 +5,7 @@
 #   updatedAt: DS.attr('date')
 #   body: DS.attr('string')
 
-Post = DS.Model.extend
+class Post extends DS.Model
   title: DS.attr('string')
   author: DS.attr('string')
   updatedAt: DS.attr('date')
