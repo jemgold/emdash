@@ -8,7 +8,7 @@ PostController = Em.ObjectController.extend
     @get('target').transitionTo('posts')
 
   readingTime:(->
-    words = @get('body').split(' ').length
+    words = @get('body')?.split(' ').length
     WPM = 200
     seconds = parseInt(words / (WPM / 60), 10)
     d = moment.duration(seconds, 'seconds')

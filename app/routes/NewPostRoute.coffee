@@ -6,7 +6,8 @@ NewPostRoute = Em.Route.extend
     @render 'edit_post', controller: 'new_post'
 
   model: ->
-    Post.createRecord()
+    m = @controllerFor('posts').get('searchValue')
+    Post.createRecord(title: m)
 
   exit: ->
     model = @get('controller.model')

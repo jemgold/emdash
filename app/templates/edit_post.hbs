@@ -1,27 +1,21 @@
 <form {{action save on="submit"}} class="edit-form">
 
-  <div class="editor-container">
-    {{view Ember.TextField valueBinding="title" id="title" class="content"}}
-    {{view Ember.TextArea valueBinding="body" id="body" class="content"}}
+  <div class="radform">
+    {{view Ember.TextField valueBinding="title" id="title" class="content" placeholder="Title"}}
+    {{view Ember.TextArea valueBinding="body" id="body" class="content" placeholder="Just Write"}}
   </div>
   <div class="actions">
-    <div class="alignright">
-      <button type="submit" class="butt">Save</button>
-    </div>
-    <a href="#" {{action "destroy"}} class="warning-text butt icon icon-remove action">Delete</a>
+    <button type="submit" class="btn btn--primary">Save</button>
+    <a href="#" {{action "destroy"}} class="btn btn--alt">Delete</a>
   </div>
-
-
-<!--   <p>
-    <label for="author">Author</label><br>
-    {{view Ember.TextField valueBinding="author" id="author"}}
-  </p>
-
-  <p>
-    <label for="published_at">Published at</label><br>
-    {{view Ember.TextField valueBinding="publishedAt" id="published_at"}}
-  </p> -->
-
 
 </form>
 
+<hr>
+
+<p class="cf meta">
+  <span class="alignright">Reading time: {{readingTime}}</span>
+  Written {{date updatedAt}}
+</p>
+
+</div>

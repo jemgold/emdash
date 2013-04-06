@@ -17,6 +17,7 @@ exports.config =
                     'vendor/scripts/handlebars-1.0.rc.3.js'
                     'vendor/scripts/ember.js'
                     'vendor/scripts/ember-data-master.js'
+                    # 'vendor/scripts/ember-parse-adapter-0.2.2'
                     'vendor/scripts/localstorage_adapter.js'
                     'vendor/scripts/showdown.js'
                     'vendor/scripts/moment.js'

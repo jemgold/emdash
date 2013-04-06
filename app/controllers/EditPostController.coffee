@@ -18,4 +18,9 @@ EditPostController = Em.ObjectController.extend
     model = @get('model')
     router.transitionTo('post', model)
 
+  bod: (->
+    showdown = new Showdown.converter()
+    new Em.Handlebars.SafeString(showdown.makeHtml(@get('body')))
+  ).property('body')
+
 module.exports = EditPostController

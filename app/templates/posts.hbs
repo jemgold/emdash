@@ -1,21 +1,22 @@
-<div class="promo">
-  {{#linkTo "new_post" class="butt icon icon-new"}}New Document{{/linkTo}}
-</div>
+{{#linkTo "new_post" class="btn btn--primary"}}New Document{{/linkTo}}
+{{view App.SearchView valueBinding="searchValue" id="search" class="searchbox" placeholder="Search or Create"}}
 
-<ul class="documents">
-  {{#each post in controller}}
-    <li>
+<ul class="posts unstyled">
+  {{#each post in filteredContent}}
+    <li class="posts__post">
     {{#linkTo "post" post class="blend-link document-link"}}
       <span class="document-title">{{post.title}}</span>
       <small class="last-edited">
         <span class="mobile-offscreen">Last edited: </span>{{date post.updatedAt}}
       </small>
     {{/linkTo}}
-    <div class="align-right mini-actions">
+    <div class="mini-actions">
       {{#linkTo "edit_post" post}}Edit{{/linkTo}}
       {{#linkTo "post" post}}View{{/linkTo}}
       <a href="#" {{action "destroy" post}}>Destroy</a>
     </div>
     </li>
+  {{else}}
+    <h1>Bosh ↵ to make a new note!</h1>
   {{/each}}
 </ul>
