@@ -8,8 +8,10 @@ App.Store = require 'store'
 require 'templates/application'
 require 'templates/index'
 require 'templates/posts'
+# require 'templates/posts/index'
 require 'templates/post'
-require 'templates/edit_post'
+require 'templates/post/index'
+require 'templates/post/edit'
 
 
 # ===== Models =====
@@ -17,9 +19,9 @@ App.Post = require 'models/Post'
 
 # ===== Controllers =====
 App.PostsController = require 'controllers/PostsController'
-App.PostController = require 'controllers/PostController'
-App.EditPostController = require 'controllers/EditPostController'
-App.NewPostController = require 'controllers/NewPostController'
+App.PostsNewController = require 'controllers/PostsNewController'
+App.PostIndexController = require 'controllers/PostIndexController'
+App.PostEditController = require 'controllers/PostEditController'
 
 # ===== Views =====
 App.SearchView = require "views/SearchView"
@@ -37,11 +39,15 @@ Em.Handlebars.registerBoundHelper 'md', (value, options) ->
 # ===== Routes =====
 App.IndexRoute = require 'routes/IndexRoute'
 App.PostsRoute = require 'routes/PostsRoute'
-App.NewPostRoute = require 'routes/NewPostRoute'
+App.PostsNewRoute = require 'routes/PostsNewRoute'
+App.PostIndexRoute = require 'routes/PostIndexRoute'
+App.PostEditRoute = require 'routes/PostEditRoute'
 
 # ===== Router =====
 App.Router.map ->
-  @resource('posts')
-  @resource('post', path: '/posts/:post_id')
-  @route('edit_post', path: '/posts/:post_id/edit')
-  @route('new_post', path: '/posts/new')
+  @resource('posts', ->
+    @route('new')
+    @resource('post', path: '/:post_id', ->
+      @route('edit', path: '/edit')
+    )
+  )

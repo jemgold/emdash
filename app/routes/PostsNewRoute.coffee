@@ -1,9 +1,9 @@
 # App = require 'app'
 Post = require 'models/Post'
 
-NewPostRoute = Em.Route.extend
+PostsNewRoute = Em.Route.extend
   renderTemplate: ->
-    @render 'edit_post', controller: 'new_post'
+    @render 'post/edit', controller: 'posts.new'
 
   model: ->
     m = @controllerFor('posts').get('searchValue')
@@ -14,4 +14,4 @@ NewPostRoute = Em.Route.extend
     unless model.get('isSaving')
       model.deleteRecord()
 
-module.exports = NewPostRoute
+module.exports = PostsNewRoute

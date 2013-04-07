@@ -1,6 +1,6 @@
 App = require 'app'
 
-class PostController extends Em.ObjectController
+class PostIndexController extends Em.ObjectController
   destroy: ->
     return unless confirm('Are you sure?')
     @model.deleteRecord()
@@ -15,4 +15,4 @@ class PostController extends Em.ObjectController
     d = moment.duration(seconds, 'seconds')
     d.humanize()
 
-module.exports = PostController
+module.exports = PostIndexController

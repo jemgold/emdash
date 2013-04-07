@@ -22,11 +22,10 @@ class PostsController extends Em.ArrayController
 
   findOrCreate: (value) ->
     c = @filteredContent
-    target = @target
     if c.length is 0
-      target.transitionTo('new_post')
+      @target.transitionTo('posts.new')
     else
       m = c.objectAt(0)
-      target.transitionTo('post', m)
+      @target.transitionTo('post', m)
 
 module.exports = PostsController

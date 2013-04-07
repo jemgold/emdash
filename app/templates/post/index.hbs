@@ -1,0 +1,16 @@
+<div class="hentry document">
+<h1>{{title}}</h1>
+
+{{md body}}
+
+<hr>
+
+<p class="cf meta">
+  <span class="alignright">Reading time: {{readingTime}}</span>
+  Written {{date updatedAt}}
+</p>
+
+</div>
+{{#linkTo "posts"}}←All Posts{{/linkTo}}
+{{#linkTo "post.edit" model}}Edit{{/linkTo}}
+<a href="#" {{action "destroy"}}>Destroy</a>

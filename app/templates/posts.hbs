@@ -1,4 +1,4 @@
-{{#linkTo "new_post" class="btn btn--primary"}}New Document{{/linkTo}}
+<div class="navigation">
 {{view App.SearchView valueBinding="searchValue" id="search" class="searchbox" placeholder="Search or Create"}}
 
 <ul class="posts unstyled">
@@ -11,7 +11,7 @@
       </small>
     {{/linkTo}}
     <div class="mini-actions">
-      {{#linkTo "edit_post" post}}Edit{{/linkTo}}
+      {{#linkTo "post.edit" post}}Edit{{/linkTo}}
       {{#linkTo "post" post}}View{{/linkTo}}
       <a href="#" {{action "destroy" post}}>Destroy</a>
     </div>
@@ -20,3 +20,8 @@
     <h1>Bosh ↵ to make a new note!</h1>
   {{/each}}
 </ul>
+</div>
+
+<div class="body">
+{{outlet}}
+</div>

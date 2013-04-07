@@ -1,6 +1,6 @@
 App = require 'app'
 
-class EditPostController extends Em.ObjectController
+class PostEditController extends Em.ObjectController
   editor: true
   save: ->
     @model.updatedAt = new Date()
@@ -21,4 +21,4 @@ class EditPostController extends Em.ObjectController
     showdown = new Showdown.converter()
     new Em.Handlebars.SafeString(showdown.makeHtml(@body))
 
-module.exports = EditPostController
+module.exports = PostEditController

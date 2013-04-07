@@ -1,9 +1,8 @@
-# App = require 'app'
-Post = require('models/Post')
+App = require 'app'
 
 PostsRoute = Em.Route.extend
   model: ->
-    Post.find()
+    App.Post.find()
 
   enter: ->
     @controllerFor('posts').set('searchValue', '')
